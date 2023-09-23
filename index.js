@@ -5,13 +5,15 @@ const app = express();
 
 const userRouter = require('./route/user');
 const dbConnect = require('./config/dbConnection');
+const cookieParser = require('cookie-parser');
 const dotenv = require("dotenv").config();
 
 dbConnect();
 
+app.use(cookieParser())
 app.use(express.json());
 app.use(cors({
-    Credential: true,
+    credentials: true,
     origin: process.env.CLIENT_URL
 }))
 app.use('/auth', userRouter.router)
